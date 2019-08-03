@@ -1,0 +1,104 @@
+% This steup file inclusdes SAIL lab + Queens setup
+\include{setup}
+
+% This is my custom setup that I needed in my Google Play store papers
+\include{Safwat_setup}   
+
+
+%*************************************************************************************************************
+% Custom needed packages
+%*************************************************************************************************************
+%\usepackage[square]{natbib}
+\usepackage{natbib}
+%\usepackage[numbers,sort&compress]{natbib}
+%\usepackage{adjustbox}
+
+\usepackage{caption}
+\usepackage{lipsum}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage[flushleft]{threeparttable}
+\usepackage{tabu}
+\fancyfoot{}
+\fancyhead[RO,LE]{\thepage}
+\fancyhead[LO]{\leftmark}
+\fancyhead[RE]{\rightmark}
+\usepackage[toc,page]{appendix}
+\newcommand{\smalltt}[1]{\ifmmode{\mbox{\smaller\texttt{#1}}}\else{\smaller\tt #1}\fi}
+\newcommand{\code}[1]{\smalltt{#1}}
+
+
+
+\begin{document}
+
+\title{Studying the integration practices and the evolution of ad libraries in the Google Play Store}
+
+\author{Md Ahasanuzzaman}
+
+\dept{School of Computing}
+\degree{Master of Science}
+
+\beforepreface
+\singlespacing  \doublespacing
+
+\prefacesection{Abstract}
+\input{Abstract}
+
+\setlength{\abovedisplayskip}{3pt plus1pt minus1pt}
+\setlength{\abovedisplayshortskip}{3pt plus1pt minus1pt}
+\setlength{\belowdisplayskip}{3pt plus1pt minus1pt}
+\setlength{\belowdisplayshortskip}{3pt plus1pt minus1pt}
+
+
+ \prefacesection{Acknowledgments}
+ \input{Acknowledgments}
+
+%\prefacesection{Dedication}
+%\input{Dedication}
+%\prefacesection{Co-authorship}
+%\input	{Coauthorship}
+ 
+
+\addtables
+\pagestyle{fancy}
+
+
+\include{Introduction}
+
+%\include{Background}
+\include{Source_Tex/Study_1_Longitudinal_Study_Ad_Libraries/Related_Work}
+\include{Study_2_Studying_Ad_Library_Integration_Practices}
+\include{Study_1_Longitudinal_Analysis_Ad_Libraries}
+
+
+
+%\include{Load_Testing}
+
+
+
+% \include{Study_Emergency_Update}
+
+% \include{Study_Bady_Update}
+
+% \include{Study_User_Dev_Dialogue}
+
+\include{Conclusion}
+
+%\bibliographystyle{plain}
+\addcontentsline{toc}{chapter}{Bibliography}
+\Urlmuskip=0mu plus 1mu\relax
+
+\bibliographystyle{apalike}
+\bibliography{Ads_References}
+
+\clearpage
+%\addtocontents{toc}{\protect\renewcommand*\protect\cftchappresnum{Appendix}
+\addcontentsline{toc}{chapter}{Appendix}
+\appendix
+\chapter{Identified Ad Libraries}
+\include{Appendix}
+
+
+
+\doublespacing
+\end{document}

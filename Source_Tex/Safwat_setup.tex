@@ -1,0 +1,49 @@
+\usepackage{afterpage}
+
+\newcommand{\NEGDIFF}{{\emph{Neg}$_{\text{\emph{Diff}}}$}}
+
+
+% --------------------------------------------------------------------------------
+% -------------- Settings needed for the Developer reply paper ---------------
+% --------------------------------------------------------------------------------
+
+% The custom defined cell types, I needed this to make the headers centered but the remaining of the column is right or left justified.
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{C}[1]{>{\centering\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\\arraybackslash\hspace{0pt}}m{#1}}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes.geometric,calc}
+
+\newcommand\score[2]{
+	\pgfmathsetmacro\pgfxa{#1+1}
+	\tikzstyle{scorestars}=[star, star points=5, star point ratio=2.25, draw,inner sep=0.15em,anchor=outer point 3]
+	\begin{tikzpicture}[baseline]
+	\foreach \i in {1,...,#2} {
+		\pgfmathparse{(\i<=#1?"yellow":"gray")}
+		\edef\starcolor{\pgfmathresult}
+		\draw (\i*1em,0) node[name=star\i,scorestars,fill=\starcolor]  {};
+	}
+	\pgfmathparse{(#1>int(#1)?int(#1+1):0}
+	\let\partstar=\pgfmathresult
+	\ifnum\partstar>0
+	\pgfmathsetmacro\starpart{#1-(int(#1))}
+	\path [clip] ($(star\partstar.outer point 3)!(star\partstar.outer point 2)!(star\partstar.outer point 4)$) rectangle 
+	($(star\partstar.outer point 2 |- star\partstar.outer point 1)!\starpart!(star\partstar.outer point 1 -| star\partstar.outer point 5)$);
+	\fill (\partstar*1em,0) node[scorestars,fill=yellow]  {};
+	\fi
+	
+	,\end{tikzpicture}
+}
+
+
+\newcommand{\smallnum}[1]{$^{\tiny {\textbf #1}}$}
+
+\newcommand{\specialcell}[2][c]{%
+	\begin{tabular}[#1]{@{}c@{}}#2\end{tabular}}
+
+\newcommand{\specialcellLeft}[2][t]{%
+	\begin{tabular}[#1]{@{}l@{}}#2\end{tabular}}
+
+%\usepackage{threeparttable, tablefootnote}
+

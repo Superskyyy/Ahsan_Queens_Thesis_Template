@@ -1,0 +1,315 @@
+% Queen's Thesis Format
+% (Borrowed from Dean Jin's BigDis.tex file, then heavily modified :)
+
+% Michelle L. Crane, Queen's University, 2003
+
+%*************************************************************************************************************
+% DOCUMENT STYLE
+%*************************************************************************************************************
+%\documentclass[12pt]{report}
+\documentclass[12pt,oneside]{report}
+
+%%-------------------------------------------------------------------------------------------------------------
+\usepackage{quthesis}        % the Queen's University dissertation style file
+\usepackage[many]{tcolorbox}
+\usepackage{amsmath}
+\usepackage{color}
+%\usepackage[table]{xcolor}
+\usepackage{listings}
+\usepackage{utopia} % The "Utopia" font
+\usepackage{charter} % The "charter" font
+\usepackage{textcomp} % Allows the use of extra characters
+\usepackage{graphicx}        % for graphic images (use \includegraphics[...]{file.eps})
+\usepackage[caption=false,font=footnotesize]{subfig}
+\usepackage{booktabs, tabularx}        % Package used to make variable width-columns, i.e.,
+\usepackage{fancybox}
+\usepackage{multirow}
+\usepackage{multicol}
+\usepackage[linesnumbered]{algorithm2e}
+\usepackage{url}
+\usepackage{array}
+
+
+\definecolor{mytroqous}{RGB}{220,20,60}
+%\usepackage[colorlinks=true, linkcolor=mytroqous , citecolor=mytroqous , bookmarks=true,pagebackref=false,allcolors=mytroqous ]{hyperref}
+\usepackage[colorlinks=true, linkcolor=blue , citecolor=blue , bookmarks=true,pagebackref=false,allcolors=blue ]{hyperref}
+
+\usepackage[Sonny]{fncychap} % For fancy chapters
+\usepackage{fancyhdr} % For fancy chapters
+
+\usepackage{lettrine} % for large letters
+
+\usepackage{changepage}
+
+\usepackage{adjustbox}
+
+%\documentclass[11pt,twoside]{report}
+%\documentclass[11pt,oneside]{report}
+%\usepackage[sort&compress,round]{natbib}
+
+%\usepackage{quthesis}
+
+%\usepackage{utopia} % The "Utopia" font
+%\usepackage{charter} % The "charter" font
+%\usepackage{textcomp} % Allows the use of extra characters
+
+
+%\usepackage{enumerate}
+%\usepackage{caption}
+
+%\usepackage{graphicx}
+%\usepackage{multirow}
+%\usepackage{multicol}
+%\usepackage{subfig}
+%\usepackage{url}
+%\usepackage{rotating}
+%\usepackage{setspace}
+%\usepackage{array}
+%\usepackage{nth}
+%\usepackage{hhline}
+%\usepackage{amsmath}
+%\usepackage{booktabs}
+%\usepackage{ragged2e} 
+%\usepackage{rotating}
+
+%\usepackage{minted}
+%\usepackage{colortbl}
+
+%\usepackage{emptypage}
+%\usepackage{tikz}
+%\usetikzlibrary{arrows,automata}
+%\usepackage[colorlinks=false, linkcolor=blue, citecolor=blue, bookmarks=true,pagebackref=false]{hyperref}
+%\usepackage{comment}
+%\usepackage{lettrine} % for large letters
+%\usepackage{changepage}
+%Options: Sonny, Lenny, Glenn, Conny, Rejne, Bjarne, Bjornstrup
+%\usepackage[Sonny]{fncychap} % For fancy chapters
+%\usepackage{fancyhdr} % For fancy chapters
+%\usepackage{fancybox}
+%\usepackage[colorlinks=true, linkcolor=blue, citecolor=blue, bookmarks=true,pagebackref]{hyperref}
+%\usepackage{hypernat} % Need this so backreferences from hyperref (in the bibliography) work with natbibs "compress" option, i.e, [1,2,3] gets compressed to [1-3], but we need 2 to be counted
+
+%*************************************************************************************************************
+% MISCELLANEOUS COMMANDS AND ENVIRONMENTS
+%*************************************************************************************************************
+% Use this command to show more table of contents - used when playing
+% with the draft outline
+% I think it should be about 2???
+\setcounter{tocdepth}{2}
+%*************************************************************************************************************
+% Environment definition I found in the "The Latex Companion".  Used to
+% create a list environment where the indenting is the same for all of the
+% entries, regardless of their length.  Note:  must \usepackage{calc}.
+\newenvironment{Ventry}[1]%
+    {\begin{list}{}{\renewcommand{\makelabel}[1]{\textbf{##1}\hfil}%
+        \settowidth{\labelwidth}{\textbf{#1:}}%
+        \setlength{\leftmargin}{\labelwidth+\labelsep}}}%
+    {\end{list}}
+%*************************************************************************************************************
+
+%*************************************************************************************************************
+% MY DEFINED COMMANDS
+%*************************************************************************************************************
+% Command that I can use to create notes in the margins;
+% adapted from Juergen's META tag
+
+\newcommand{\todo}[1]{\textcolor{blue}{\textbf{[[TODO: #1]]}}}
+\newcommand{\metric}[1]{#1}
+\newcommand{\className}[1]{\textbf{\sf #1}}
+\newcommand{\functionName}[1]{\textbf{\sf #1}}
+\newcommand{\objectName}[1]{\textbf{\sf #1}}
+
+\newcommand{\fetch}[1]{\textbf{\em #1}}
+
+\newcommand{\annotation}[1]{\textbf{#1}}
+
+\newcommand{\meta}[1]{\begin{singlespacing}
+{\marginpar{\emph{\footnotesize Note: #1}}}\end{singlespacing}}
+%*************************************************************************************************************
+% Command that I can use to create lined headings
+\newcommand{\heading}[1]{\bigskip \hrule \smallskip \noindent \texttt{#1} \smallskip \hrule}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with line
+% numbers printed along the left side.  The parameter is the file name.
+\newcommand{\fileinnum}[1]{
+    \begin{singlespacing} {\footnotesize
+    \begin{listinginput}[1]{1}{#1}\end{listinginput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with NO line
+% numbers, but in a smaller font.  The parameter is the file name.
+\newcommand{\filein}[1]{
+    \begin{singlespacing}{\footnotesize
+    \begin{verbatiminput}{#1}\end{verbatiminput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Command that I can use for reading in a file, verbatim, with NO line
+% numbers, but in a smaller font.  The parameter is the file name.
+\newcommand{\fileinsmall}[1]{
+    \begin{singlespacing}{\scriptsize
+    \begin{verbatiminput}{#1}\end{verbatiminput}
+    }\end{singlespacing}
+}
+%*************************************************************************************************************
+% Dean't 'notesbox' command.  Needs setspace package.
+%   Usage: \notesbox{This is a note.}
+%
+\newcommand{\notesbox}[1]{
+%     \ \\
+      \singlespacing
+      \noindent\begin{boxedminipage}[h]{\textwidth}{\sf{#1}}\end{boxedminipage}
+      \doublespacing
+
+}
+\newcommand{\researchBox}[1]{
+\begin{center}
+\cornersize{.15} 
+\setlength{\fboxsep}{8pt}
+\thinlines
+\ovalbox{\begin{minipage}{5.7in}
+{\em #1}
+\end{minipage}}
+
+\end{center}}
+
+\newcommand{\parhead}[1]{{\noindent \textbf{#1}}}
+
+\newcommand{\framework}{\textsc{\em CacheOptimizer}}
+\newcommand{\frameworkSpace}{\textsc{\em CacheOptimizer }}
+
+\newcommand{\baseline}{\textsc{\em CacheAll}}
+\newcommand{\baselineSpace}{\textsc{\em CacheAll }}
+
+\newcommand{\default}{\textsc{\em DefaultCache}}
+\newcommand{\defaultSpace}{\textsc{\em DefaultCache }}
+
+\newcommand{\rowstyle}[1]{\gdef\currentrowstyle{#1}%
+  #1\ignorespaces
+}
+
+\newcommand{\pattern}[1]{\emph{#1}}
+
+
+\newcommand{\sid}[1]{\begin{sideways}{#1}\end{sideways}}
+
+	% Abstract box
+\newcommand{\makeAbstract}[1]{
+{\small
+\begin{singlespace}
+\textsl{#1}
+\end{singlespace}
+}
+}
+\newcommand{\relatedPub}[1]{\vspace{1em} \noindent \textbf{Publications based on
+this chapter:} \citet{#1}}
+
+\renewcommand{\baselinestretch}{1.5}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Gray box
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{fancybox}%for \hypobox
+\usepackage{pstricks} 
+\usepackage{balance}
+\definecolor{light-gray}{gray}{0.85}	
+
+
+\newcommand{\hypobox}[1]{\begin{center}%	
+		\noindent\thicklines\setlength{\fboxsep}{7pt}%	
+		\cornersize{0}\psframebox[framearc = 0.2, fillstyle = solid, fillcolor = light-gray]{\begin{minipage}{.95\textwidth}
+				\textit{#1}
+\end{minipage}} \end{center}}
+
+
+
+\newcommand{\fancyFun}[1]{
+\begin{tikzpicture}
+\node [fill=cyan, rounded corners=5pt] {\large #1};
+\end{tikzpicture}
+}
+
+\usepackage{multirow}
+\usepackage{enumerate}
+\usepackage{longtable}
+\usepackage[utopia]{mathdesign}
+\usepackage{helvet}
+\usepackage{lscape}
+\usepackage{adjustbox}
+\usepackage{xcolor}
+%\usepackage[numbers, sort]{natbib}
+ %\usepackage[sort&compress,round]{natbib}
+%\usepackage[sort&compress,round]{natbib}
+
+\usepackage{setspace}
+\usepackage{pbox}
+
+
+\usepackage{framed}
+\definecolor{mypink1}{rgb}{0.858, 0.188, 0.478}
+\definecolor{mypink2}{RGB}{219, 48, 122}
+\definecolor{mypink3}{cmyk}{0, 0.7808, 0.4429, 0.1412}
+\definecolor{mygray}{gray}{0.9}
+
+\definecolor{formalshade}{RGB}{255,255,153}    
+
+\newenvironment{formal}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{formalshade}\vrule width 6pt}%
+    {\color{mygray}\vrule width 4pt}%
+    \colorbox{mygray}%
+  }%
+  \MakeFramed{\advance\hsize-\width\FrameRestore}%
+  \noindent\hspace{-4.55pt}% disable indenting first paragraph
+  \begin{adjustwidth}{}{7pt}%
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+
+\usepackage{mathtools}
+
+\usepackage{lscape}
+ \usepackage{tabularx}
+ \usepackage[figuresright]{rotating}
+  
+\newtcolorbox[auto counter]{summary}[1][]{title={\bfseries Summary},enhanced,
+	coltitle=black,
+	top=0.17in,
+	attach boxed title to top left=
+	{xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+	boxed title style={size=small,colback=lightgray},#1}
+	
+\newtcolorbox[auto counter]{summary_RQ1}[1][]{title={\bfseries Summary of RQ1},enhanced,
+	coltitle=black,
+	top=0.17in,
+	attach boxed title to top left=
+	{xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+	boxed title style={size=small,colback=lightgray},#1}
+
+\newtcolorbox[auto counter]{summary_RQ2}[1][]{title={\bfseries Summary of RQ2},enhanced,
+	coltitle=black,
+	top=0.17in,
+	attach boxed title to top left=
+	{xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+	boxed title style={size=small,colback=lightgray},#1}
+	
+\newtcolorbox[auto counter]{summary_RQ3}[1][]{title={\bfseries Summary of RQ3},enhanced,
+	coltitle=black,
+	top=0.17in,
+	attach boxed title to top left=
+	{xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+	boxed title style={size=small,colback=lightgray},#1}
+	
+	
+\newtcolorbox[auto counter]{thesis_statment}[1][]{
+	coltitle=black,
+	top=0.17in,
+	attach boxed title to top left=
+	{xshift=1.5em,yshift=-\tcboxedtitleheight/2},
+	boxed title style={size=small,colback=lightgray},#1}
